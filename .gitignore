@@ -340,5 +340,4 @@ ASALocalRun/
 healthchecksdb
 
 # Local configuration files
-appsettings.json
-appsettings.*.json
+appsettings.Development.json
