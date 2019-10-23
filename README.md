@@ -54,3 +54,9 @@ CREATE SPATIAL INDEX [SPATIAL_PostcodeLookup_Location]
 GO
 ```
 
+
+## Articles
+
+[Cosmos DB Emolator](https://developer.okta.com/blog/2019/07/11/aspnet-azure-cosmosdb-tutorial)
+
+

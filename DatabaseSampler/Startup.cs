@@ -28,6 +28,8 @@ namespace DatabaseSampler
             //services.AddMvc();
             services.AddControllersWithViews();
 
+            services.AddMemoryCache();
+
             services.AddTransient<IDataGenerator, BogusDataGenerator>();
 
             services.AddHttpClient<ILocationService, LocationService>();

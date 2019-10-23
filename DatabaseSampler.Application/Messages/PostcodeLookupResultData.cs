@@ -24,8 +24,8 @@ namespace DatabaseSampler.Application.Messages
         [JsonPropertyName("outcode")]
         public string Outcode { get; set; }
 
-        [JsonPropertyName("admin_district")]
-        public string AdminDistrict { get; set; }
+        //[JsonPropertyName("admin_district")]
+        //public string AdminDistrict { get; set; }
 
         [JsonPropertyName("admin_county")]
         public string AdminCounty { get; set; }

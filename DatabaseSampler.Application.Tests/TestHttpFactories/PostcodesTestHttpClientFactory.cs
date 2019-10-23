@@ -1,22 +1,63 @@
+using System;
+using System.Collections.Generic;
 using System.Net.Http;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using DatabaseSampler.Application.Messages;
-using Sfa.Tl.Matching.Models.Dto;
 
 namespace DatabaseSampler.Application.Tests.TestHttpFactories
 {
     public class PostcodesTestHttpClientFactory : TestHttpClientFactory
     {
-        public HttpClient Get(string requestPostcode, PostcodeLookupResultData responseData)
+        public HttpClient Get(string requestPostcode,
+            bool isValidPostcode,
+            PostcodeLookupResultData postcodeResponseData,
+            bool isTerminatedPostcode,
+            TerminatedPostcodeLookupResultData terminatedPostcodeResponseData)
         {
-            var response = new PostcodeLookupResponse
-            {
-                Result = responseData,
-                Status = "OK"
-            };
+            var requests = new List<RequestWrapper>();
 
-            return CreateClient(response, $"https://example.com/postcodes/{requestPostcode.Replace(" ", "")}");
+            if (isValidPostcode && postcodeResponseData != null)
+            {
+                requests.Add(new RequestWrapper
+                {
+                    Uri = $"https://api.postcodes.io/postcodes/{Uri.EscapeDataString(requestPostcode)}",
+                    ResponseObject = 
+                        //(isValidPostcode && postcodeResponseData != null) ?
+                        (object)new PostcodeLookupResponse
+                        {
+                            Result = postcodeResponseData,
+                            Status = "OK"
+                        } 
+                        //:
+                        //new ErrorResponse
+                        //{
+                        //    Error = "Invalid postcode",
+                        //    Status = "NotFound"
+                        //}
+                });
+            }
+
+            if (isTerminatedPostcode && terminatedPostcodeResponseData != null)
+            {
+                requests.Add(new RequestWrapper
+                {
+                    Uri = $"https://api.postcodes.io/terminated_postcodes/{Uri.EscapeDataString(requestPostcode)}",
+                    ResponseObject = 
+                        //(isTerminatedPostcode && terminatedPostcodeResponseData != null) ?
+                        (object)new TerminatedPostcodeLookupResponse
+                        {
+                            Result = terminatedPostcodeResponseData,
+                            Status = "OK"
+                        } 
+                        //:
+                        //new ErrorResponse
+                        //{
+                        //    Error = "Terminated postcode not found",
+                        //    Status = "NotFound"
+                        //}
+                });
+            }
+
+            return CreateClient(requests);
         }
     }
 }
