@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
-using DatabaseSampler.Application.DataGenerator;
 using DatabaseSampler.Application.Interfaces;
+using DatabaseSampler.Application.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,18 +11,19 @@ namespace DatabaseSampler.Controllers
     {
         private readonly IDataGenerator _dataGenerator;
         private readonly IPostgresSqlService _postgresSqlService;
-        
+
         public PostgresController(IDataGenerator dataGenerator, IPostgresSqlService postgresSqlService)
         {
             _dataGenerator = dataGenerator;
             _postgresSqlService = postgresSqlService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var vm = await LoadStudentsViewModelAsync();
+            return View(vm);
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> CreateStudent()
         {
@@ -32,7 +33,18 @@ namespace DatabaseSampler.Controllers
             var student = _dataGenerator.CreateStudent();
             var id = await _postgresSqlService.AddStudentAsync(student);
 
-            return View("Index");
+            var vm = await LoadStudentsViewModelAsync();
+
+            return View("Index", vm);
+        }
+
+        private async Task<StudentsViewModel> LoadStudentsViewModelAsync()
+        {
+            var students = await _postgresSqlService.GetStudentsAsync();
+            return new StudentsViewModel
+            {
+                Students = students
+            };
         }
     }
 }

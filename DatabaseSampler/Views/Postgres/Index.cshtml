@@ -1,4 +1,6 @@
-﻿@{
+﻿@model DatabaseSampler.Application.ViewModels.StudentsViewModel
+
+@{
     ViewData["Title"] = "PostgresSQL";
 }
 
@@ -8,6 +10,27 @@
 
 <form asp-action="CreateStudent">
     <div class="form-group">
-    <button type="submit" class="btn btn-primary btn-sm">Add a student</button>
+        <button type="submit" class="btn btn-primary btn-sm">Add a student</button>
     </div>
 </form>
+
+@if (Model.Students != null)
+{
+    <table>
+        <thead>
+            <tr>
+                <td>Id</td>
+                <td>FirstName</td>
+                <td>LastName</td>
+            </tr>
+        </thead>
+        @foreach (var student in Model.Students.OrderBy(s => s.Id))
+        {
+            <tr>
+                <td>@student.Id</td>
+                <td>@student.FirstName</td>
+                <td>@student.LastName</td>
+            </tr>
+        }
+    </table>
+}
