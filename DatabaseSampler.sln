@@ -7,12 +7,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseSampler", "Database
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseSampler.Application", "DatabaseSampler.Application\DatabaseSampler.Application.csproj", "{498C44BB-03A7-4D45-84EC-E9FA1C1BDB20}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseSampler.Application.Tests", "DatabaseSampler.Application.Tests\DatabaseSampler.Application.Tests.csproj", "{80B6AFBF-4676-42B9-A653-C5C920623EB7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseSampler.Application.Tests", "DatabaseSampler.Application.Tests\DatabaseSampler.Application.Tests.csproj", "{80B6AFBF-4676-42B9-A653-C5C920623EB7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CD993871-73BB-495F-BBA4-EA848860D571}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseSampler.Functions", "DatabaseSampler.Functions\DatabaseSampler.Functions.csproj", "{266C4FF0-AFB5-4C45-86EB-7DF519DE4AF6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +34,10 @@ Global
 		{80B6AFBF-4676-42B9-A653-C5C920623EB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80B6AFBF-4676-42B9-A653-C5C920623EB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80B6AFBF-4676-42B9-A653-C5C920623EB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{266C4FF0-AFB5-4C45-86EB-7DF519DE4AF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{266C4FF0-AFB5-4C45-86EB-7DF519DE4AF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{266C4FF0-AFB5-4C45-86EB-7DF519DE4AF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{266C4FF0-AFB5-4C45-86EB-7DF519DE4AF6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

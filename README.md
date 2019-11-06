@@ -57,6 +57,9 @@ GO
 
 ## Articles
 
-[Cosmos DB Emolator](https://developer.okta.com/blog/2019/07/11/aspnet-azure-cosmosdb-tutorial)
+[Cosmos DB Emulator](https://developer.okta.com/blog/2019/07/11/aspnet-azure-cosmosdb-tutorial)
+
+[Functions V3 Preview Setup](https://dev.to/azure/develop-azure-functions-using-net-core-3-0-gcm)
+
 
 

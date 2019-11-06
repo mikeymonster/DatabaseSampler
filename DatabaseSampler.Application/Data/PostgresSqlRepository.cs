@@ -1,6 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using DatabaseSampler.Application.Interfaces;
 using DatabaseSampler.Application.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DatabaseSampler.Application.Data
 {
@@ -20,6 +22,11 @@ namespace DatabaseSampler.Application.Data
             await _studentContext.SaveChangesAsync();
 
             return student.Id;
+        }
+
+        public async Task<IList<Student>> GetStudentsAsync()
+        {
+            return await _studentContext.Students.ToListAsync();
         }
     }
 }
