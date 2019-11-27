@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using DatabaseSampler.Application.Interfaces;
 using DatabaseSampler.Application.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -32,6 +33,8 @@ namespace DatabaseSampler.Controllers
 
             var student = _dataGenerator.CreateStudent();
             var id = await _postgresSqlService.AddStudentAsync(student);
+            
+            Console.WriteLine($"Created student with id {id} for {student.FirstName} {student.LastName}");
 
             var vm = await LoadStudentsViewModelAsync();
 

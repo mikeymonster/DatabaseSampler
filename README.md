@@ -57,9 +57,44 @@ GO
 
 ## Articles
 
-[Cosmos DB Emulator](https://developer.okta.com/blog/2019/07/11/aspnet-azure-cosmosdb-tutorial)
+[Cosmos DB MVC](https://developer.okta.com/blog/2019/07/11/aspnet-azure-cosmosdb-tutorial)
+
+[Cosmos DB .NET Core](https://jeremylindsayni.wordpress.com/2019/02/25/getting-started-with-azure-cosmos-db-and-net-core-part-1-installing-the-cosmos-emulator/)
+
+[Official tutorial](https://docs.microsoft.com/en-us/azure/cosmos-db/sql-api-dotnet-application)
 
 [Functions V3 Preview Setup](https://dev.to/azure/develop-azure-functions-using-net-core-3-0-gcm)
 
+## Code Downloads
 
+[Cosmos Book Code](https://github.com/PacktPublishing/Guide-to-NoSQL-with-Azure-Cosmos-DB)
+
+
+## Azure ML
+
+[First ML experiment with R - Azure Machine Learning](https://docs.microsoft.com/en-us/azure/machine-learning/service/tutorial-1st-r-experiment?WT.mc_id=Revolutions-blog-davidsmi)
+[Install](https://azure.github.io/azureml-sdk-for-r/articles/installation.html)
+remotes::install_github('https://github.com/Azure/azureml-sdk-for-r', INSTALL_opts=c("--no-multiarch"))
+
+
+## Azure Search 
+
+look for data from query below,
+index it to search by qualification title
+
+--(localdb)\ProjectsV13
+--use [Matching.Live]
+
+select		* 
+from		Provider p
+inner join	providervenue pv
+on			pv.ProviderId = p.Id
+inner join	ProviderQualification pvq
+on			pvq.ProviderVenueId = pv.Id
+inner join	Qualification q
+on			q.Id = pvq.QualificationId
+inner join	QualificationRouteMapping qrm
+on			qrm.QualificationId = q.Id
+inner join	Route r
+on			r.Id = qrm.RouteId
 

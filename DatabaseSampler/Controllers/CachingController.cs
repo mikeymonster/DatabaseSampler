@@ -13,7 +13,7 @@ namespace DatabaseSampler.Controllers
     [AllowAnonymous]
     public class CachingController : Controller
     {
-        private IMemoryCache _cache;
+        private readonly IMemoryCache _cache;
         private readonly ILocationService _locationService;
 
         public CachingController(IMemoryCache cache, ILocationService locationService)
@@ -50,12 +50,11 @@ namespace DatabaseSampler.Controllers
             var foundInCache = true;
 
             var stopwatch = Stopwatch.StartNew();
-            Location result;
 
             var cacheKey = $"Postcode_{viewModel.Postcode.Replace(" ", "")}";
 
             // Look for cache key.
-            if (!_cache.TryGetValue(cacheKey, out result))
+            if (!_cache.TryGetValue(cacheKey, out Location result))
             {
                 foundInCache = false;
                 result = await _locationService.LookupPostcodeAsync(viewModel.Postcode);
