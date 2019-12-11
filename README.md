@@ -76,6 +76,9 @@ GO
 [Install](https://azure.github.io/azureml-sdk-for-r/articles/installation.html)
 remotes::install_github('https://github.com/Azure/azureml-sdk-for-r', INSTALL_opts=c("--no-multiarch"))
 
+Deployment - see https://github.com/Microsoft/AKSDeploymentTutorial
+ or updated https://github.com/microsoft/AKSDeploymentTutorialAML
+
 
 ## Azure Search 
 
@@ -97,4 +100,35 @@ inner join	QualificationRouteMapping qrm
 on			qrm.QualificationId = q.Id
 inner join	Route r
 on			r.Id = qrm.RouteId
+
+
+## Developer setup
+
+### Requirements
+
+* [Docker for X](https://docs.docker.com/install/#supported-platforms)
+* https://docs.docker.com/docker-for-windows/install/
+
+
+### Environment Setup
+
+The default development environment uses docker containers to host the following dependencies.
+
+* Redis
+
+On first setup run the following command from _**/setup/containers/**_ to create the docker container images:
+
+`docker-compose build`
+
+To start the container run:
+
+`docker-compose up -d`
+
+To stop the container run:
+
+`docker-compose down`
+
+You can view the state of the running containers using:
+
+`docker ps -a`
 

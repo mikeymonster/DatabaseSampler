@@ -35,6 +35,13 @@ namespace DatabaseSampler
 
             services.AddMemoryCache();
 
+            //Configure Redis distributed cache
+            var redisConnectionString = Configuration["RedisConnectionString"];
+            services.AddStackExchangeRedisCache(options => {
+                options.Configuration = redisConnectionString;
+                options.InstanceName = "";
+            });
+
             services.AddTransient<IDataGenerator, BogusDataGenerator>();
 
             services.AddHttpClient<ILocationService, LocationService>();

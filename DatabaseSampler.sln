@@ -14,7 +14,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseSampler.Functions", "DatabaseSampler.Functions\DatabaseSampler.Functions.csproj", "{266C4FF0-AFB5-4C45-86EB-7DF519DE4AF6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseSampler.Functions", "DatabaseSampler.Functions\DatabaseSampler.Functions.csproj", "{266C4FF0-AFB5-4C45-86EB-7DF519DE4AF6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "containers", "containers", "{C821E8C8-85FD-4107-B816-339E3B6ABA45}"
+	ProjectSection(SolutionItems) = preProject
+		containers\docker-compose.yml = containers\docker-compose.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +46,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C821E8C8-85FD-4107-B816-339E3B6ABA45} = {CD993871-73BB-495F-BBA4-EA848860D571}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {62D0A3F3-C77F-4AF8-8F5D-A983A5EBDAD3}

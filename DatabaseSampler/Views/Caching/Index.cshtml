@@ -13,6 +13,8 @@
         <div class="input-group col-sm-2">
             <label asp-for="Postcode">Postcode</label>
             <input type="text" class="form-control" asp-for="Postcode" placeholder="Additional Info" />
+            <span class="field-validation-error text-danger" 
+                  asp-validation-for="Postcode">The postcode is required.</span>
         </div>
     </div>
     @if (Model.ElapsedTimeForLookup.HasValue)
@@ -29,8 +31,9 @@
             }
         </div>
     }
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-sm" asp-action="LookupPostcode">Lookup postcode</button>
-        <button type="submit" class="btn btn-primary btn-sm" asp-action="LookupPostcodeWithCaching">Lookup with caching</button>
-    </div>
+<div class="form-group">
+    <button type="submit" class="btn btn-primary btn-sm" asp-action="LookupPostcode">Lookup postcode</button>
+    <button type="submit" class="btn btn-primary btn-sm" asp-action="LookupPostcodeWithMemoryCaching">Lookup using memory cache</button>
+    <button type="submit" class="btn btn-primary btn-sm" asp-action="LookupPostcodeWithDistributedCaching">Lookup using distributed cache</button>
+</div>
 </form>
