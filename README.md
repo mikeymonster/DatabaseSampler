@@ -116,7 +116,7 @@ The default development environment uses docker containers to host the following
 
 * Redis
 
-On first setup run the following command from _**/setup/containers/**_ to create the docker container images:
+On first setup run the following command from _**/containers/**_ to create the docker container images:
 
 `docker-compose build`
 
@@ -131,4 +131,17 @@ To stop the container run:
 You can view the state of the running containers using:
 
 `docker ps -a`
+
+You can start an interactive shell inside the container with
+
+`docker exec -it redis /bin/bash`
+
+To see logs in the container use
+
+`docker logs redis`
+
+or to see an interactive view of logs 
+
+`docker logs -f redis`
+
 
