@@ -132,6 +132,18 @@ You can view the state of the running containers using:
 
 `docker ps -a`
 
+To check all details including volumes and network suse
+
+`docker inspect redis`
+
+To check network details use
+
+`docker network inspect containers_redis-network`
+
+To see all networks use
+
+`docker network ls`
+
 You can start an interactive shell inside the container with
 
 `docker exec -it redis /bin/bash`
