@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text.Json;
 using System.Threading.Tasks;
 using DatabaseSampler.Application.Interfaces;
 using DatabaseSampler.Application.Messages;
@@ -28,67 +29,60 @@ namespace DatabaseSampler.Application.Services
         public async Task<Location> LookupPostcodeAsync(string postcode)
         {
             //https://devblogs.microsoft.com/dotnet/try-the-new-system-text-json-apis/
-            try
+
+            //Postcodes.io Returns 404 for "CV12 wt" so I have removed all special characters to get best possible result
+            var lookupUrl = $"{_baseUrl}/postcodes/{Uri.EscapeDataString(postcode)}";
+
+            var responseMessage = await _httpClient.GetAsync(lookupUrl);
+
+            if (responseMessage.StatusCode == HttpStatusCode.NotFound)
             {
-                //Postcodes.io Returns 404 for "CV12 wt" so I have removed all special characters to get best possible result
-                var lookupUrl = $"{_baseUrl}/postcodes/{Uri.EscapeDataString(postcode)}";
+                //Try for a terminated postcode
+                return await LookupTerminatedPostcodeAsync(postcode);
+            }
 
-                var responseMessage = await _httpClient.GetAsync(lookupUrl);
+            responseMessage.EnsureSuccessStatusCode();
 
-                if (responseMessage.StatusCode == HttpStatusCode.NotFound)
-                {
-                    //Try for a terminated postcode
-                    return await LookupTerminatedPostcodeAsync(postcode);
-                }
+            var contentStream = await responseMessage.Content.ReadAsStreamAsync();
+            var response = await JsonSerializer.DeserializeAsync<PostcodeLookupResponse>(contentStream);
 
-                responseMessage.EnsureSuccessStatusCode();
-
-                var response = await responseMessage.Content.ReadAsAsync<PostcodeLookupResponse>();
-
-                return new Location
-                {
+           return response != null 
+               ? new Location
+               {
                     Postcode = response.Result.Postcode,
-                    Latitude = decimal.Parse(response.Result.Latitude),
-                    Longitude = decimal.Parse(response.Result.Longitude),
+                    Latitude = response.Result.Latitude,
+                    Longitude = response.Result.Longitude,
                     DistrictCode = response.Result.Codes.AdminDistrict,
                     IsTerminated = false,
                     TerminatedYear = null,
                     TerminatedMonth = null
-                };
-            }
-            catch
-            {
-                throw;
-            }
+                }
+                : null;
         }
 
         public async Task<Location> LookupTerminatedPostcodeAsync(string postcode)
         {
-            try
-            {
-                //Postcodes.io Returns 404 for "CV12 wt" so I have removed all special characters to get best possible result
-                var lookupUrl = $"{_baseUrl}/terminated_postcodes/{Uri.EscapeDataString(postcode)}";
+            //Postcodes.io Returns 404 for "CV12 wt" so I have removed all special characters to get best possible result
+            var lookupUrl = $"{_baseUrl}/terminated_postcodes/{Uri.EscapeDataString(postcode)}";
 
-                var responseMessage = await _httpClient.GetAsync(lookupUrl);
+            var responseMessage = await _httpClient.GetAsync(lookupUrl);
 
-                responseMessage.EnsureSuccessStatusCode();
+            responseMessage.EnsureSuccessStatusCode();
 
-                var response = await responseMessage.Content.ReadAsAsync<TerminatedPostcodeLookupResponse>();
+            var contentStream = await responseMessage.Content.ReadAsStreamAsync();
+            var response = await JsonSerializer.DeserializeAsync<TerminatedPostcodeLookupResponse>(contentStream);
 
-                return new Location
+            return response != null
+                ? new Location
                 {
                     Postcode = response.Result.Postcode,
-                    Latitude = decimal.Parse(response.Result.Latitude),
-                    Longitude = decimal.Parse(response.Result.Longitude),
+                    Latitude = response.Result.Latitude,
+                    Longitude = response.Result.Longitude,
                     IsTerminated = true,
                     TerminatedYear = short.Parse(response.Result.TerminatedYear),
                     TerminatedMonth = short.Parse(response.Result.TerminatedMonth)
-                };
-            }
-            catch
-            {
-                throw;
-            }
+                }
+                : null;
         }
     }
 }

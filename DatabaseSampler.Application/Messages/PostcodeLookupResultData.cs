@@ -10,10 +10,10 @@ namespace DatabaseSampler.Application.Messages
         public string Postcode { get; set; }
 
         [JsonPropertyName("longitude")]
-        public string Longitude { get; set; }
+        public double Longitude { get; set; }
 
         [JsonPropertyName("latitude")]
-        public string Latitude { get; set; }
+        public double Latitude { get; set; }
 
         [JsonPropertyName("country")]
         public string Country { get; set; }

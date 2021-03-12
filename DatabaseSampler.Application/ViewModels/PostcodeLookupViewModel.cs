@@ -8,9 +8,9 @@ namespace DatabaseSampler.Application.ViewModels
         [Required(ErrorMessage = "You must enter a postcode")]
         public string Postcode { get; set; }
 
-        public decimal Latitude { get; set; }
+        public double Latitude { get; set; }
 
-        public decimal Longitude { get; set; }
+        public double Longitude { get; set; }
 
         public bool IsTerminated { get; set; }
 

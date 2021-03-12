@@ -15,8 +15,8 @@ namespace DatabaseSampler.Application.Tests
             var responseData = new PostcodeLookupResultData
             {
                 Postcode = "SW1A 2AA",
-                Latitude = "51.50354",
-                Longitude = "-0.127695",
+                Latitude = 51.50354,
+                Longitude = -0.127695,
                 Country = "England",
                 Region = "London",
                 Outcode = "SW1A",
@@ -48,10 +48,9 @@ namespace DatabaseSampler.Application.Tests
             result.Should().NotBeNull();
 
             result.Postcode.Should().Be("SW1A 2AA");
-            result.Latitude.Should().Be(51.50354M);
-            result.Longitude.Should().Be(-0.127695M);
-            //TODO: Why is nested district code not deserialized?
-            //result.DistrictCode.Should().Be("E09000033");
+            result.Latitude.Should().Be(51.50354);
+            result.Longitude.Should().Be(-0.127695);
+            result.DistrictCode.Should().Be("E09000033");
             result.IsTerminated.Should().BeFalse();
             result.TerminatedYear.Should().BeNull();
             result.TerminatedMonth.Should().BeNull();
@@ -65,8 +64,8 @@ namespace DatabaseSampler.Application.Tests
             var terminatedPostcodeResponseData = new TerminatedPostcodeLookupResultData
             {
                 Postcode = "AB1 0AX",
-                Latitude = "57.095679",
-                Longitude = "-2.24788",
+                Latitude = 57.095679,
+                Longitude = -2.24788,
                 TerminatedYear = "1996",
                 TerminatedMonth = "6"
             };
@@ -82,8 +81,8 @@ namespace DatabaseSampler.Application.Tests
             result.Should().NotBeNull();
 
             result.Postcode.Should().Be("AB1 0AX");
-            result.Latitude.Should().Be(57.095679M);
-            result.Longitude.Should().Be(-2.24788M);
+            result.Latitude.Should().Be(57.095679);
+            result.Longitude.Should().Be(-2.24788);
             result.DistrictCode.Should().BeNull();
             result.IsTerminated.Should().BeTrue();
             result.TerminatedYear.Should().Be(1996);

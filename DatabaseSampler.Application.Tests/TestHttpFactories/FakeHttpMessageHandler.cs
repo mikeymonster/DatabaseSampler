@@ -9,7 +9,7 @@ namespace DatabaseSampler.Application.Tests.TestHttpFactories
 {
     public class FakeHttpMessageHandler : DelegatingHandler
     {
-        private readonly Dictionary<Uri, HttpResponseMessage> _fakeResponses = new Dictionary<Uri, HttpResponseMessage>();
+        private readonly Dictionary<Uri, HttpResponseMessage> _fakeResponses = new();
 
         public void AddFakeResponse(Uri uri, HttpResponseMessage responseMessage)
         {

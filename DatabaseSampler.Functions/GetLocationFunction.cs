@@ -1,3 +1,4 @@
+using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
@@ -8,29 +9,39 @@ using Microsoft.Azure.Functions.Worker.Http;
 
 namespace DatabaseSampler.Functions
 {
-    public class GetStudentsFunction
+    public class GetLocationFunction
     {
-        private readonly IPostgresSqlService _postgresSqlService;
+        private readonly ILocationService _locationService;
 
-        public GetStudentsFunction(IPostgresSqlService postgresSqlService)
+        public GetLocationFunction(ILocationService locationService)
         {
-            _postgresSqlService = postgresSqlService;
+            _locationService = locationService;
         }
 
-        [Function("GetStudents")]
-        public async Task<HttpResponseData> GetStudents(
+        [Function("GetLocation")]
+        public async Task<HttpResponseData> GetLocation(
             [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] 
             HttpRequestData req,
             FunctionContext executionContext)
         {
             var logger = executionContext.GetLogger("HttpFunction");
             logger.LogInformation("C# HTTP trigger function processed a request.");
-            
-            var data = await _postgresSqlService.GetStudentsAsync();
+
+            string payload;
+            using (var streamReader = new StreamReader(req.Body))
+            {
+                payload = await streamReader.ReadToEndAsync();
+            }
+
+            logger.LogInformation($"Have payload {payload}");
+
+            var postcode = payload;
+
+            var data = await _locationService.LookupPostcodeAsync(postcode);
 
             var response = req.CreateResponse(HttpStatusCode.OK);
             response.Headers.Add("Content-Type", "application/json");
-
+            
             var json = JsonSerializer.Serialize(data);
             await response.WriteStringAsync(json);
 

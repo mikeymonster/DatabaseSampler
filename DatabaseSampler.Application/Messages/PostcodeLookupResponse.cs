@@ -5,7 +5,7 @@ namespace DatabaseSampler.Application.Messages
     public class PostcodeLookupResponse
     {
         [JsonPropertyName("status")]
-        public string Status { get; set; }
+        public int Status { get; set; }
         [JsonPropertyName("result")]
         public PostcodeLookupResultData Result { get; set; }
     }

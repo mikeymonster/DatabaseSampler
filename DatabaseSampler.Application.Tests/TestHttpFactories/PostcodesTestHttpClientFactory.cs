@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using DatabaseSampler.Application.Messages;
 
@@ -20,19 +21,11 @@ namespace DatabaseSampler.Application.Tests.TestHttpFactories
                 requests.Add(new RequestWrapper
                 {
                     Uri = $"https://api.postcodes.io/postcodes/{Uri.EscapeDataString(requestPostcode)}",
-                    ResponseObject = 
-                        //(isValidPostcode && postcodeResponseData != null) ?
-                        (object)new PostcodeLookupResponse
-                        {
-                            Result = postcodeResponseData,
-                            Status = "OK"
-                        } 
-                        //:
-                        //new ErrorResponse
-                        //{
-                        //    Error = "Invalid postcode",
-                        //    Status = "NotFound"
-                        //}
+                    ResponseObject = new PostcodeLookupResponse
+                    {
+                        Result = postcodeResponseData,
+                        Status = (int)HttpStatusCode.OK
+                    }
                 });
             }
 
@@ -41,19 +34,11 @@ namespace DatabaseSampler.Application.Tests.TestHttpFactories
                 requests.Add(new RequestWrapper
                 {
                     Uri = $"https://api.postcodes.io/terminated_postcodes/{Uri.EscapeDataString(requestPostcode)}",
-                    ResponseObject = 
-                        //(isTerminatedPostcode && terminatedPostcodeResponseData != null) ?
-                        (object)new TerminatedPostcodeLookupResponse
-                        {
-                            Result = terminatedPostcodeResponseData,
-                            Status = "OK"
-                        } 
-                        //:
-                        //new ErrorResponse
-                        //{
-                        //    Error = "Terminated postcode not found",
-                        //    Status = "NotFound"
-                        //}
+                    ResponseObject = new TerminatedPostcodeLookupResponse
+                    {
+                        Result = terminatedPostcodeResponseData,
+                        Status = (int)HttpStatusCode.OK
+                    } 
                 });
             }
 

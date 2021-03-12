@@ -9,31 +9,17 @@ namespace DatabaseSampler.Application.Tests.TestHttpFactories
 {
     public abstract class TestHttpClientFactory
     {
+        // ReSharper disable once UnusedMember.Global
         protected HttpClient CreateClient(string uri, object response, string contentType = "application/json")
         {
             return CreateClient(new List<RequestWrapper>
             {
-                new RequestWrapper
-                    {
-                Uri =uri,
-                ResponseObject = response
+                new()
+                {
+                    Uri =uri,
+                    ResponseObject = response
                 }
             });
-            //var serialized = JsonSerializer.Serialize(response);
-
-            //var httpResponseMessage = new HttpResponseMessage(HttpStatusCode.OK)
-            //{
-            //    Content = new StringContent(serialized)
-            //};
-            //httpResponseMessage.Content.Headers.ContentType = new MediaTypeHeaderValue(contentType);
-
-            //var fakeMessageHandler = new FakeHttpMessageHandler();
-            //fakeMessageHandler.AddFakeResponse(new Uri(uri),
-            //    httpResponseMessage);
-
-            //var httpClient = new HttpClient(fakeMessageHandler);
-
-            //return httpClient;
         }
 
         protected HttpClient CreateClient(IEnumerable<RequestWrapper> requests, string contentType = "application/json")
@@ -58,7 +44,5 @@ namespace DatabaseSampler.Application.Tests.TestHttpFactories
             var httpClient = new HttpClient(fakeMessageHandler);
             return httpClient;
         }
-
-        
     }
 }
