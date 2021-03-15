@@ -24,7 +24,7 @@ namespace DatabaseSampler.Functions
             FunctionContext executionContext)
         {
             var logger = executionContext.GetLogger("HttpFunction");
-            logger.LogInformation("C# HTTP trigger function processed a request.");
+            logger.LogInformation("GetStudents HTTP trigger function processed a request.");
             
             var data = await _postgresSqlService.GetStudentsAsync();
 

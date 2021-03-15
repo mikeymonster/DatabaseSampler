@@ -20,28 +20,42 @@ namespace DatabaseSampler.Functions
 
         [Function("GetLocation")]
         public async Task<HttpResponseData> GetLocation(
-            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] 
+            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)]
             HttpRequestData req,
             FunctionContext executionContext)
         {
             var logger = executionContext.GetLogger("HttpFunction");
-            logger.LogInformation("C# HTTP trigger function processed a request.");
+            logger.LogInformation("GetLocation HTTP trigger function processed a request.");
 
-            string payload;
-            using (var streamReader = new StreamReader(req.Body))
+            var method = req.Method;//.Query["postcode"];
+            logger.LogInformation($"Method is {method}");
+
+            string postcode = null;
+            switch (method)
             {
-                payload = await streamReader.ReadToEndAsync();
+                case "GET":
+                    var uri = req.Url;//.Query["postcode"];
+                    logger.LogInformation($"Uri is {uri}");
+                    logger.LogInformation($"Uri query is is {uri.Query}");
+                    var queryParameters = System.Web.HttpUtility.ParseQueryString(uri.Query);
+                    postcode = queryParameters["postcode"];
+                    break;
+
+                case "POST":
+                    using (var streamReader = new StreamReader(req.Body))
+                    {
+                        var payload = await streamReader.ReadToEndAsync();
+                        logger.LogInformation($"Have payload {payload}");
+                        postcode = payload;
+                    }
+                    break;
             }
-
-            logger.LogInformation($"Have payload {payload}");
-
-            var postcode = payload;
 
             var data = await _locationService.LookupPostcodeAsync(postcode);
 
             var response = req.CreateResponse(HttpStatusCode.OK);
             response.Headers.Add("Content-Type", "application/json");
-            
+
             var json = JsonSerializer.Serialize(data);
             await response.WriteStringAsync(json);
 
