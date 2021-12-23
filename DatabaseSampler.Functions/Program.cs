@@ -14,8 +14,8 @@ var host = new HostBuilder()
         s.AddTransient<IPostgresSqlRepository, PostgresSqlRepository>();
         s.AddTransient<IPostgresSqlService, PostgresSqlService>();
 
-                    //Configure PostgresSql
-                    var pgConnectionString = Environment.GetEnvironmentVariable("PostgreSqlConnectionString");
+        //Configure PostgresSql
+        var pgConnectionString = Environment.GetEnvironmentVariable("PostgreSqlConnectionString");
         var pgPassword = Environment.GetEnvironmentVariable("PostgreSqlDbPassword");
         var pgBuilder = new NpgsqlConnectionStringBuilder(pgConnectionString)
         {
