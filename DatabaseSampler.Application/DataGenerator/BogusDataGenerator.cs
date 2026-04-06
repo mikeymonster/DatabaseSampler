@@ -24,7 +24,7 @@ public partial class BogusDataGenerator(ILogger<BogusDataGenerator> logger) : ID
         EventId = 103,
         Level = LogLevel.Information,
         Message = "Bogus teacher created with Id={Id}, Name {FirstName} {LastName}, Subject {Subject}, Joined {Joined}.")]
-    private static partial void LogBogusTeacherCreated(ILogger logger, int id, string firstName, string lastName, string subject, DateTime joined);
+    private static partial void LogBogusTeacherCreated(ILogger logger, Guid id, string firstName, string lastName, string subject, DateTime joined);
 
     public Expense CreateExpense() =>
         new Faker<Expense>()
@@ -59,7 +59,7 @@ public partial class BogusDataGenerator(ILogger<BogusDataGenerator> logger) : ID
 
     public Teacher CreateTeacher() =>
         new Faker<Teacher>()
-            .RuleFor(t => t.Id, f => 0) // Use zero - Id will be assigned when added to a data collection
+            .RuleFor(t => t.Id, f => Guid.NewGuid())
             .RuleFor(t => t.FirstName, f => f.Name.FirstName())
             .RuleFor(t => t.LastName, f => f.Name.LastName())
             .RuleFor(t => t.SpecialistSubject, f => f.PickRandom<string>(SpecialistSubjects.All))

@@ -16,3 +16,22 @@
 
 <p>Existing items</p>
 
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Specialist Subject</th>
+            <th>Joined</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Teachers)
+        {
+            <tr>
+                <td>@($"{item.FirstName} {item.LastName}")</td>
+                <td>@item.SpecialistSubject</td>
+                <td>@item.Joined.ToShortDateString()</td>
+            </tr>
+        }
+    </tbody>
+</table>

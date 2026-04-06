@@ -6,6 +6,9 @@ using DatabaseSampler.Application.Services;
 using DatabaseSampler.Shared;
 using Microsoft.Azure.Cosmos;
 using Microsoft.EntityFrameworkCore;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
 
 namespace DatabaseSampler.Extensions;
 
@@ -47,6 +50,7 @@ internal static class ApplicationBuilderExtensions
                 ServiceLifetime.Transient);
 
             builder.AddMongoDBClient(ResourceNames.MongoDB);
+            BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
 
             builder.AddNpgsqlDbContext<StudentDbContext>(connectionName: ResourceNames.PostgresDB);
 

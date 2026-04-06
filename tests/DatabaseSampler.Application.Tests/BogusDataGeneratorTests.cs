@@ -42,7 +42,7 @@ public class BogusDataGeneratorTests
 
         result.ShouldNotBeNull();
 
-        result.Id.ShouldBe(0);
+        result.Id.ShouldNotBe(Guid.Empty);
         result.FirstName.ShouldNotBeNull();
         result.LastName.ShouldNotBeNull();
         result.SpecialistSubject.ShouldNotBeNull();

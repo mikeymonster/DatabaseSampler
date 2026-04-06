@@ -19,7 +19,7 @@ public partial class MongoController(
         EventId = 502,
         Level = LogLevel.Information,
         Message = "Teacher created with Id={Id}, Name {FirstName} {LastName}, Subject {Subject}, Joined {Joined}.")]
-    private static partial void LogTeacherCreated(ILogger logger, int id, string firstName, string lastName, string subject, DateTime joined);
+    private static partial void LogTeacherCreated(ILogger logger, Guid id, string firstName, string lastName, string subject, DateTime joined);
 
     public async Task<IActionResult> Index()
     {
@@ -36,9 +36,8 @@ public partial class MongoController(
     public async Task<IActionResult> CreateTeacher()
     {
         var teacher = _dataGenerator.CreateTeacher();
-        //var id = await _mongoDbService.AddTeacherAsync(teacher);
-        var id = -1;
-
+        await _mongoDbService.AddTeacherAsync(teacher);
+        
         if (_logger.IsEnabled(LogLevel.Debug))
         {
             LogTeacherCreated(_logger, teacher.Id, teacher.FirstName, teacher.LastName, teacher.SpecialistSubject, teacher.Joined);
