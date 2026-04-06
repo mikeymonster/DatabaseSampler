@@ -1,0 +1,6 @@
+{
+  "appHost": {
+    "path": "DatabaseSampler.AppHost/DatabaseSampler.AppHost.csproj",
+    "language": "csharp"
+  }
+}

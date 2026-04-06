@@ -391,7 +391,7 @@ I changed the functyions to use an ASP.NET MVC style routing, so the function na
 
 I've set this up to use the preview emulator image so I can add the Data Explorer. This caused some issues on startup
 
-I had problems getting it to start. In the Aspire console the instance stayed unhelthy, and looking at the console logs it was " pgcosmos readiness check still waiting for Postgres startup".
+I had problems getting it to start. In the Aspire console the instance stayed unhealthy, and looking at the console logs it was " pgcosmos readiness check still waiting for Postgres startup".
 Eventually I went to look at the log in the container. Either look for container name and use it in a docker command:
 ```
 docker ps | grep cosmos # bash
@@ -418,6 +418,7 @@ I then ran `certmgr.msc` (or `certlm.msc`) and looked at Certificates > Personal
  - DocumentDbEmulatorCertificate 
 I deleted those and when I ran the AppHost again everything started correctly.
 
+On another occasion I had to delete the docker container and fimage, which forced the image to be downloaded again - this cleared startup problems.
 
 ## TODO 
 
